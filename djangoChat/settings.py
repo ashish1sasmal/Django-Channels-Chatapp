@@ -28,7 +28,7 @@ SECRET_KEY = '086#0)0t=3c0-rh3u@08)2_4neg$n8fa885k#80284_2=$0ydl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['wingmanchat.herokuapp.com']
+ALLOWED_HOSTS = ['.herokuapp.com','127.0.0.1']
 
 
 # Application definition
