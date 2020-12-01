@@ -1,0 +1,12 @@
+1. Home Page
+	-> Create Room
+	-> Join Room
+	-> Login/Signup
+
+2. Create Room
+	-> self generate roomname
+	-> store roomname in database
+	-> Join room
+
+3. Join Room
+	-> Display Previous messages
