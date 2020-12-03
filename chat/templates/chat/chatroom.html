@@ -699,10 +699,7 @@ body {
         
         const chatSocket = new WebSocket(
             'ws://' +
-            window.location.host +
-            '/' +
-            roomName +
-            '/'
+            window.location.host
         );
 
         chatSocket.onmessage = function (e) {
