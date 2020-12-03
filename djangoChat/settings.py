@@ -91,9 +91,7 @@ CHANNEL_LAYERS = {
     
     "default":{
         "BACKEND": 'channels.layers.InMemoryChannelLayer',
-         'CONFIG': {
-            "hosts": [os.environ.get('REDISTOGO_URL',('redis', 6379))],
-        },
+        
     }
 }
 
