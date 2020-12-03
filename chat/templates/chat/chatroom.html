@@ -608,7 +608,7 @@ body {
           </div>
         </div>
         <div class="col-sm-8 col-xs-7 heading-name">
-          <a class="heading-name-meta">John Doe
+          <a class="heading-name-meta">{{ user2 }}
           </a>
           <span class="heading-online">Online</span>
         </div>
@@ -696,7 +696,7 @@ body {
 
 
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
-
+        
         const chatSocket = new WebSocket(
             'ws://' +
             window.location.host +
