@@ -11,8 +11,8 @@ class Profile(models.Model):
 
 
 class Friends(models.Model):
- 	user1 = models.OneToOneField(Profile,related_name="user1", on_delete=models.CASCADE)
- 	user2 = models.OneToOneField(Profile,related_name="user2", on_delete=models.CASCADE)
+ 	user1 = models.OneToOneField(Profile,related_name="prof1", on_delete=models.CASCADE)
+ 	user2 = models.OneToOneField(Profile,related_name="prof2", on_delete=models.CASCADE)
 
  	def __str__(self):
  		return f'{self.user1.user.username}_{self.user2.user.username}'

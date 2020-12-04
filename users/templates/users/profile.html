@@ -29,7 +29,10 @@
                 {% if user.username == request.user.username %}
                 <a href="#" class="btn btn-xs btn-primary mb-2">Edit Profile</a>
                 {% else %}
+                {% if isFriend %}
+                {% else %}
                 <button id="addf" class="btn btn-xs btn-primary mb-2">Add Friend</button>
+                {% endif %}
                 <a href="{% url 'room' user.username %}" class="btn btn-xs btn-primary mb-2">Message</a>
                 {% endif %}
             </div>
@@ -222,7 +225,17 @@
             }));
         };
 
-
+        chatSocket.onmessage = function (e) {
+            const data = JSON.parse(e.data);
+            if (data.result)
+            {
+                alert("Friends Now!");
+                location.reload(); 
+            }
+            else{
+                alert("Some error occured!");
+            }
+};
 
 
 </script>

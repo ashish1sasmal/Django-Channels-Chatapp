@@ -38,11 +38,11 @@ class ProfileConsumer(AsyncWebsocketConsumer):
                         self.room_group_name,
                         {
                             'type': 'response',
-                            'result': result
+                            'result':result
                         }
                     )
     async def response(self, event):
-        message = event['result']
+        result = event['result']
 
         await self.send(text_data=json.dumps({
             'result': result

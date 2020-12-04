@@ -26,7 +26,11 @@ def user_logout(request):
 class UserProfile(LoginRequiredMixin, View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(username=kwargs["name"])
-        return render(request,"users/profile.html",{"user":user})
+        isFriend=True
+        # print(Friends.objects.all())
+        if Friends.objects.filter(user1__user__username=user.username,user2__user__username=request.user.username).count()==0 and Friends.objects.filter(user2__user__username=user.username,user1__user__username=request.user.username).count()==0:
+            isFriend=False
+        return render(request,"users/profile.html",{"user":user,"isFriend":isFriend})
 
 
 
@@ -62,7 +66,7 @@ class Signup(View):
 		pro.save()
 		return redirect('login')
 
-class Friends(View):
+class Friendlist(View):
 	def get(self,request,*args,**kwargs):
 		users = User.objects.all()
 		return render(request,"users/friends.html",{"users":users})
