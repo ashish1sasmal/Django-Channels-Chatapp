@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from django.db.models import Q
+
 from .models import *
 
 # Create your views here.
@@ -28,9 +30,17 @@ class UserProfile(LoginRequiredMixin, View):
         user = User.objects.get(username=kwargs["name"])
         isFriend=True
         # print(Friends.objects.all())
+        friendlist = Friends.objects.filter(Q(user1__user=user)|Q(user2__user=user))
+        fl=[]
+        for i in friendlist:
+            if i.user1.user.username == user.username:
+                fl.append(i.user2)
+            else:
+                fl.append(i.user1)
+        print(fl)
         if Friends.objects.filter(user1__user__username=user.username,user2__user__username=request.user.username).count()==0 and Friends.objects.filter(user2__user__username=user.username,user1__user__username=request.user.username).count()==0:
             isFriend=False
-        return render(request,"users/profile.html",{"user":user,"isFriend":isFriend})
+        return render(request,"users/profile.html",{"user":user,"isFriend":isFriend,'fl':fl})
 
 
 
@@ -68,5 +78,5 @@ class Signup(View):
 
 class Friendlist(View):
 	def get(self,request,*args,**kwargs):
-		users = User.objects.all()
+		users = User.objects.exclude(id=request.user.id)
 		return render(request,"users/friends.html",{"users":users})
