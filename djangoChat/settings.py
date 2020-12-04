@@ -77,43 +77,34 @@ TEMPLATES = [
 WSGI_APPLICATION = 'djangoChat.wsgi.application'
 ASGI_APPLICATION = 'djangoChat.routing.application'
 
-# CHANNEL_LAYERS = {
-    
-#     "default":{
-#         "BACKEND": 'channels_redis.core.RedisChannelLayer',
-#         'CONFIG' : {
-#             "hosts":[('127.0.0.1',6379)]
-#         }
-#     }
-# }
-
 CHANNEL_LAYERS = {
     
     "default":{
-        "BACKEND": 'channels.layers.InMemoryChannelLayer',
-        
+        "BACKEND": 'channels_redis.core.RedisChannelLayer',
+        'CONFIG' : {
+            "hosts":[('127.0.0.1',6379)]
+        }
     }
 }
 
 # CHANNEL_LAYERS = {
-#     'default': {
-#         'BACKEND': 'asgi_redis.RedisChannelLayer',
-#         'CONFIG': {
-#             'hosts': [('localhost', 6379)],
+    
+#     "default":{
+#         "BACKEND": 'channels.layers.InMemoryChannelLayer',
+#         "CONFIG": {
+#             "hosts": [("redis://redis-16271-0.cloudclusters.net",16271)],
 #         },
-#         'ROUTING': 'djangoChat.routing.channel_routing',
-#     }
+#         }
 # }
 
 # CHANNEL_LAYERS = {
 #     "default": {
-#         "BACKEND": "asgi_redis.RedisChannelLayer",
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
 #         "CONFIG": {
-#             "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+#             "hosts": [("redisredis-16271-0.cloudclusters.net",16271)],
 #         },
-#         "ROUTING": "djangoChat.routing.channel_routing",
 #     },
-# }
+# }  
 
 
 

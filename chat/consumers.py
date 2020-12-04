@@ -33,7 +33,7 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         print(message,username)
         # print(User.objects.all())
 
-        await self.saveM(username,message,self.room_group_name)
+        self.saveM(username,message,self.room_group_name)
 
         print("Message Saved!")
         await self.channel_layer.group_send(
@@ -61,6 +61,6 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         group = ChatGroup.objects.get(groupname = room_group_name)
         newM = Message(text=message,fromUser=user,toGroup=group)
         newM.save()
-
+        return True
 
     pass

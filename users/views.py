@@ -8,6 +8,7 @@ from django.views.generic import View
 from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import *
 
@@ -20,6 +21,14 @@ def home(request):
 def user_logout(request):
     logout(request)
     return redirect('home')
+
+
+class UserProfile(LoginRequiredMixin, View):
+    def get(self,request,*args,**kwargs):
+        user = User.objects.get(username=kwargs["name"])
+        return render(request,"users/profile.html",{"user":user})
+
+
 
 class Userlogin(View):
     def get(self,request,*args,**kwargs):
