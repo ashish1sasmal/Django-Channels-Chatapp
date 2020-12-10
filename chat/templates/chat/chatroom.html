@@ -6,98 +6,93 @@
 -->
 
 
-
+{% extends 'users/base.html' %}
 {% load static %}
+{% block content %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Py</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'chat/css/chatroom.css' %}">
-</head>
-<body>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<div class="container app">
-  <div class="row app-one">
+<style type="text/css">
+  body {
+  background: #E5DDD5 url("https://c4.wallpaperflare.com/wallpaper/620/81/253/pattern-design-dark-texture-wallpaper-preview.jpg") fixed;
+
+}
 
 
-    <div class="col-sm-12 conversation" >
-      <div class="row heading">
-        <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
-          <div class="heading-avatar-icon">
-            <img src="https://bootdey.com/img/Content/avatar/avatar6.png">
-          </div>
-        </div>
-        <div class="col-sm-8 col-xs-7 heading-name">
-          <a class="heading-name-meta">{{ user2 }}
-          </a>
-          <span class="heading-online">Online</span>
-        </div>
-        <div class="col-sm-1 col-xs-1  heading-dot pull-right">
-          <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
-        </div>
-      </div>
 
-      <div class="row message" id="conversation" style="background-color: #1b1f26;" >
-              <div class="row message-previous">
-          <div class="col-sm-12 previous">
-            <a onclick="previous(this)" id="ankitjain28" name="20">
-            Show Previous Message!
-            </a>
-          </div>
-        </div>
-        {% for msg in groupmsgs %}
+.chat-log {
+  padding: 40px 0 114px;
+  height: auto;
+  overflow: auto;
+}
+.chat-log__item {
+  background: #128C7E;
+  color: white;
+  padding: 10px;
+  margin: 0 auto 20px;
+  max-width: 80%;
+  min-width: 40%;
+  float: left;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.1);
+  clear: both;
+}
+
+.chat-log__item.chat-log__item--own {
+  float: right;
+  background: #1b6de0;
+  text-align: right;
+}
+
+.chat-form {
+  background: #DDDDDD;
+  padding: 40px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.chat-log__author {
+  margin: 0 auto .5em;
+  font-size: 14px;
+  font-weight: bold;
+}
+</style>
+
+<div class="main">
+  <div class="container ">
+    <div class="chat-log" id="conversation">
+      {% for msg in groupmsgs %}
         {% if msg.fromUser == request.user %}
-        <div class="row message-body" >
-          <div class="col-sm-12 message-main-sender">
-            <div class="sender" style="background-color: #22507a;color:white;">
-              <div class="message-text" >
-                <b>{{ msg.text }}</b>
-              </div>
-              <span class="message-time pull-right" style="color:white;">
-                <b>{{ msg.timestamp|date:"g:i a" }}</b>
-              </span>
-            </div>
-          </div>
-        </div>
-        {% else %}
-        <div class="row message-body" >
-          <div class="col-sm-12 message-main-receiver">
-            <div class="receiver" style="background-color: #c417eb;color:white;">
-              <div class="message-text">
-               <b>{{ msg.text }}</b>
-              </div>
-              <span class="message-time pull-right" style="color:white;">
-                <b>{{ msg.timestamp|date:"g:i a" }}</b>
-              </span>
-            </div>
-          </div>
-        </div>
-        {% endif %}
-        {% endfor %}
-
+      
+      <div class="chat-log__item chat-log__item--own">
+        <h6>{{ request.user.username }} <small class="ml-3">{{ msg.timestamp|date:"g:i a" }}</small></h6>
+        <div class="chat-log__message">{{ msg.text }}</div>
+      </div>
+      {% else %}
+      <div class="chat-log__item">
+        <h6 >{{ msg.fromUser.username }} <small class="ml-4">{{ msg.timestamp|date:"g:i a" }}</small></h6>
+        <div class="chat-log__message">{{ msg.text }}</div>
       </div>
 
-      <div class="row reply">
-        <div class="col-sm-1 col-xs-1 reply-emojis">
-          <i class="fa fa-smile-o fa-2x"></i>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <br>
+  <div class="chat-form">
+    <div class="container ">
+        <div class="row">
+          <div class="col-sm-10 col-xs-8">
+            <input type="text" class="form-control" id="input" placeholder="Message" />
+          </div>
+          <div class="col-sm-2 col-xs-4">
+            <button type="button" id="submit" class="btn btn-success btn-block">Send</button>
+          </div>
         </div>
-        <div class="col-sm-9 col-xs-9 reply-main">
-          <textarea class="form-control" id="input" rows="1" id="comment"></textarea>
-        </div>
-        <div class="col-sm-1 col-xs-1 reply-recording">
-          <i class="fa fa-microphone fa-2x" aria-hidden="true"></i>
-        </div>
-        <div class="col-sm-1 col-xs-1 reply-send">
-          <i class="fa fa-send fa-2x" id="submit" aria-hidden="true"></i>
-        </div>
-      </div>
     </div>
   </div>
 </div>
+
+
 
 {{ request.user.username|json_script:"user_username" }}
     {{ room_name|json_script:"room-name" }}
@@ -105,6 +100,7 @@
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
+  window.scrollTo(0,document.body.scrollHeight);
         const user_username = JSON.parse(document.getElementById('user_username').textContent);
         document.querySelector('#submit').onclick = function (e) {
             const messageInputDom = document.querySelector('#input');
@@ -134,42 +130,23 @@
             console.log(data);
             // document.querySelector('#chat-text').value += (data.username + ': ' + data.message + '\n');
 
-            var dict={"who":"sender","msgcol":"#22507a","fontcol":"white"}
+            var dict={"class":"chat-log__item chat-log__item--own"}
             if (user_username != data.username)
             {
-                dict["who"] = "receiver";
-                dict["msgcol"] = "#c417eb";
+                dict["class"] = "chat-log__item";
 
             }
 
                      document.getElementById('conversation').innerHTML+=
 
-  "<div class='row message-body'>"+
-"<div class='col-sm-12 message-main-"+dict["who"]+"'>"+
-"<div class='"+dict["who"]+"' style='background-color:"+dict["msgcol"]+";color:"+dict["fontcol"]+";'>"+
-  "<div class='message-text'><b>"+
-   data.message +
-  "</b></div>"+
-  "<span class='message-time pull-right'>"+
-    "Now" +
-  "</span></div></div></div>"
+  "<div class='"+dict["class"]+"'>"+
+        "<h6>"+data.username +"<small class='ml-3'> Now </small></h6>"+
+        "<div class='chat-log__message'>"+data.message+"</div>"+
+      "</div>";
+      window.scrollTo(0,document.body.scrollHeight);
 };
 
 </script>
-<script type="text/javascript">
-    $(function(){
-    $(".heading-compose").click(function() {
-      $(".side-two").css({
-        "left": "0"
-      });
-    });
 
-    $(".newMessage-back").click(function() {
-      $(".side-two").css({
-        "left": "-100%"
-      });
-    });
-})
-</script>
-</body>
-</html>
+
+{% endblock content %}
