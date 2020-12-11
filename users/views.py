@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, reverse
 
 from django.contrib import messages
 
@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.http import HttpResponseRedirect
 from django.db.models import Q
 
 from .models import *
@@ -22,7 +22,36 @@ def home(request):
 @login_required
 def user_logout(request):
     logout(request)
+    messages.success(request,"You have been logged out!")
     return redirect('home')
+
+class EditProfile(LoginRequiredMixin, View):
+    def get(self,request,*args,**kwargs):
+        profile = Profile.objects.get(user=request.user)
+        print(profile)
+        return render(request,"users/edit_profile.html",{"profile":profile})
+
+    def post(self,request,*args,**kwargs):
+        first = request.POST.get("first")
+        last = request.POST.get("last")
+        email = request.POST.get("email")
+        phone = request.POST.get("phone")
+        password = request.POST.get("first")
+        
+        user = User.objects.get(id=request.user.id)
+        user.first_name=first
+        user.last_name = last
+        user.email = email
+        user.set_password = password
+        user.save()
+        print("User data changed!")
+        profile = Profile.objects.get(user=request.user)
+        profile.phone = phone
+        profile.image = request.FILES['image']
+        profile.save()
+        print("Profile data changed!")
+        messages.success(request,"Your changes saved!")
+        return HttpResponseRedirect(reverse('profile', kwargs={'name': request.user.username}))
 
 
 class UserProfile(LoginRequiredMixin, View):
@@ -31,6 +60,8 @@ class UserProfile(LoginRequiredMixin, View):
         isFriend=True
         # print(Friends.objects.all())
         friendlist = Friends.objects.filter(Q(user1__user=user)|Q(user2__user=user))
+        profile = user.profile
+        print(profile.image.url)
         fl=[]
         for i in friendlist:
             if i.user1.user.username == user.username:
@@ -40,7 +71,7 @@ class UserProfile(LoginRequiredMixin, View):
         print(fl)
         if Friends.objects.filter(user1__user__username=user.username,user2__user__username=request.user.username).count()==0 and Friends.objects.filter(user2__user__username=user.username,user1__user__username=request.user.username).count()==0:
             isFriend=False
-        return render(request,"users/profile.html",{"user":user,"isFriend":isFriend,'fl':fl})
+        return render(request,"users/profile.html",{"user":user,"isFriend":isFriend,'fl':fl,'profile':profile})
 
 
 

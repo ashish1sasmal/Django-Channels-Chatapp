@@ -1,0 +1,121 @@
+
+
+{% extends 'users/base.html' %}
+{% load static %}
+{% block content %}
+
+	<form class="row g-3" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+
+		<div class="col-6 md-2">
+    <label for="inputFirst" class="form-label">First Name</label>
+    <input type="text" class="form-control" name="first" onchange='check("inputFirst");' id="inputFirst" placeholder="First Name" value="{{ request.user.first_name }}" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+    <div class="invalid-feedback">
+        Please enter a First Name.
+      </div>
+  </div>
+
+  <div class="col-6 md-2">
+    <label for="inputLast" class="form-label">Last Name</label>
+    <input type="text" class="form-control" name="last" onchange='check("inputLast");' id="inputLast" placeholder="Last Name" value="{{ request.user.last_name }}" required>
+
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+    <div class="invalid-feedback">
+        Please enter a Last Name.
+      </div>
+  </div>
+
+  <div class="col-md-6 mt-3">
+    <label for="inputEmail4" class="form-label">Email</label>
+    <input type="email" class="form-control" name="email" onchange='check("inputEmail4");' id="inputEmail4" placeholder="Email-Id" value="{{ request.user.email }}" required>
+
+ 	<div class="valid-feedback">
+      Looks good!
+    </div>
+    <div class="invalid-feedback">
+        Please enter valid email.
+      </div>
+  </div>
+
+  <div class="col-6 mt-3">
+    <label for="inputPhone" class="form-label">Phone No.</label>
+    <input type="text" class="form-control" onchange='check("inputPhone");' id="inputPhone" maxlength="10" placeholder="10 Digit Phone No." name="phone" value="{{ profile.phone }}" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+    <div class="invalid-feedback">
+        Please enter valid phone number.
+      </div>
+  </div>
+
+  <div class="col-md-6 mt-3">
+    <label for="inputPassword4" class="form-label">Password</label>
+    <input type="password" name="password" value="{{ request.user.password }}" class="form-control" id="inputPassword4" required>
+  </div>
+
+  <div class="col-md-6 mt-3">
+    <label for="inputImage" class="form-label">Upload Profile Pic</label>
+     <input type="file" name="image" id="inputImage" class="form-control" alt="Submit"> 
+  </div>
+  
+
+  <div class="col-12 mt-3">
+    <button type="submit" class="btn btn-outline-primary">Save Changes</button>
+  </div>
+</form>
+
+<script>
+	function check(va)
+	{
+		op = document.getElementById(va);
+		if (va == "inputEmail4")
+		{
+			if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(op.value))
+				{
+					op.classList.remove("is-invalid");
+					op.classList.add("is-valid");
+
+				}
+				else
+				{
+					op.classList.remove("is-valid");
+					op.classList.add("is-invalid");
+				}
+		}
+		else if (va == "inputPhone")
+			if (op.value.length==10)
+				{
+					
+					op.classList.remove("is-invalid");
+					op.classList.add("is-valid");
+
+				}
+				else
+				{
+					op.classList.remove("is-valid");
+					op.classList.add("is-invalid");
+				}
+		else{
+				if (op.value == "")
+		{
+			op.classList.remove("is-valid");
+			op.classList.add("is-invalid");
+
+		}
+		else
+		{
+			op.classList.remove("is-invalid");
+			op.classList.add("is-valid");
+		}
+		}
+		
+	}
+
+
+</script>
+{% endblock content %}
