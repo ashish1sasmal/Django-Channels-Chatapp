@@ -34,7 +34,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    
+
     'channels',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'djangoChat.wsgi.application'
 ASGI_APPLICATION = 'djangoChat.routing.application'
 
 CHANNEL_LAYERS = {
-    
+
     "default":{
         "BACKEND": 'channels_redis.core.RedisChannelLayer',
         'CONFIG' : {
@@ -88,7 +88,7 @@ CHANNEL_LAYERS = {
 }
 
 # CHANNEL_LAYERS = {
-    
+
 #     "default":{
 #         "BACKEND": 'channels.layers.InMemoryChannelLayer',
 #         "CONFIG": {
@@ -104,7 +104,7 @@ CHANNEL_LAYERS = {
 #             "hosts": [("redisredis-16271-0.cloudclusters.net",16271)],
 #         },
 #     },
-# }  
+# }
 
 
 
