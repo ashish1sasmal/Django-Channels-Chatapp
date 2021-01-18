@@ -62,7 +62,7 @@
     <div class="chat-log" id="conversation">
       {% for msg in groupmsgs %}
         {% if msg.fromUser == request.user %}
-      
+
       <div class="chat-log__item chat-log__item--own">
         <h6>{{ request.user.username }} <small class="ml-3">{{ msg.timestamp|date:"g:i a" }}</small></h6>
         <div class="chat-log__message">{{ msg.text }}</div>
@@ -118,7 +118,7 @@
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
         const chatSocket = new WebSocket(
-            'ws://' +
+            'wss://' +
             window.location.host +
             '/ws/chat/' +
             roomName +
