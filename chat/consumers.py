@@ -1,5 +1,5 @@
 import json
-from channels.generic.websocket import AsyncWebsocketConsumer
+from channels.generic.websocket import AsyncWebsocketConsumer,WebsocketConsumer
 
 from .models import *
 from django.contrib.auth.models import User
@@ -35,7 +35,7 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
 
         await self.saveM(username,message,self.room_group_name)
 
-        
+
         await self.channel_layer.group_send(
             self.room_group_name,
             {
