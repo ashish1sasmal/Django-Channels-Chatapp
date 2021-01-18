@@ -78,14 +78,20 @@ WSGI_APPLICATION = 'djangoChat.wsgi.application'
 ASGI_APPLICATION = 'djangoChat.routing.application'
 
 CHANNEL_LAYERS = {
-
-    "default":{
-        "BACKEND": 'channels_redis.core.RedisChannelLayer',
-        'CONFIG' : {
-            "hosts":[('127.0.0.1',6379)]
-        }
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
     }
 }
+
+# CHANNEL_LAYERS = {
+#
+#     "default":{
+#         "BACKEND": 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG' : {
+#             "hosts":[('127.0.0.1',6379)]
+#         }
+#     }
+# }
 
 # CHANNEL_LAYERS = {
 
