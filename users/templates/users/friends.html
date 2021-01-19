@@ -2,7 +2,7 @@
 {% block content %}
 
 <style type="text/css">
-  
+
   .p-4 {
     padding: 1.5rem!important;
 }
@@ -11,7 +11,7 @@
 }
 .shadow-sm {
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
-}    
+}
 }
 /* user-dashboard-info-box */
 .user-dashboard-info-box .candidates-list .thumb {
@@ -188,8 +188,6 @@
             <thead>
               <tr>
                 <th>Candidate Name</th>
-                <th class="text-center">Status</th>
-                <th class="action text-right">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -197,7 +195,7 @@
               <tr class="candidates-list">
                 <td class="title">
                   <div class="thumb">
-                    <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+                    <img class="img-fluid" src="{{i.profile.image.url}}" alt="">{{i.profile.image.url}}
                   </div>
                   <div class="candidate-list-details">
                     <div class="candidate-list-info">
@@ -212,17 +210,6 @@
                       </div>
                     </div>
                   </div>
-                </td>
-                <td class="candidate-list-favourite-time text-center">
-                  <a class="candidate-list-favourite order-2 text-danger" href="#"><i class="fas fa-heart"></i></a>
-                  <span class="candidate-list-time order-1">Shortlisted</span>
-                </td>
-                <td>
-                  <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                    <li><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view"><i class="far fa-eye"></i></a></li>
-                    <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a></li>
-                    <li><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a></li>
-                  </ul>
                 </td>
               </tr>
               {% endfor %}

@@ -65,8 +65,6 @@ class UserProfile(LoginRequiredMixin, View):
         # print(Friends.objects.all())
         friendlist = Friends.objects.filter(Q(user1__user=user)|Q(user2__user=user))
         profile = user.profile
-        print(profile.image)
-        print(profile.image.url)
         fl=[]
         for i in friendlist:
             if i.user1.user.username == user.username:
@@ -109,6 +107,7 @@ class Signup(View):
 		password = request.POST.get('password')
 		user = User.objects.create_user(username=username,email=email,password=password)
 		pro = Profile(user=user)
+		pro.image = "https://res.cloudinary.com/dqgww23zy/image/upload/v1611039496/default_qcqui4.jpg"
 		pro.save()
 		return redirect('login')
 
