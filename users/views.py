@@ -64,7 +64,8 @@ class UserProfile(LoginRequiredMixin, View):
         isFriend=True
         # print(Friends.objects.all())
         friendlist = Friends.objects.filter(Q(user1__user=user)|Q(user2__user=user))
-        profile = user.profile
+        print("popo")
+        profile = Profile.objects.get_or_create(user=user)
         fl=[]
         for i in friendlist:
             if i.user1.user.username == user.username:

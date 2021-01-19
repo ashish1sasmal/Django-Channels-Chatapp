@@ -171,6 +171,10 @@
             '/'
         );
 
+        chatSocket.onclose = function (e) {
+            alert("Session disconnected! Refresh page :)")
+};
+
         chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
             console.log(data);
