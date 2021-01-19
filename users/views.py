@@ -13,6 +13,7 @@ from django.http import HttpResponseRedirect
 from django.db.models import Q
 
 from .models import *
+import cloudinary
 
 # Create your views here.
 
@@ -37,7 +38,7 @@ class EditProfile(LoginRequiredMixin, View):
         email = request.POST.get("email")
         phone = request.POST.get("phone")
         password = request.POST.get("first")
-        
+
         user = User.objects.get(id=request.user.id)
         user.first_name=first
         user.last_name = last
@@ -47,7 +48,10 @@ class EditProfile(LoginRequiredMixin, View):
         print("User data changed!")
         profile = Profile.objects.get(user=request.user)
         profile.phone = phone
-        profile.image = request.FILES['image']
+        print(request.FILES['image'])
+        out = cloudinary.uploader.upload(request.FILES['image'])
+        print(out)
+        profile.image = out['secure_url']
         profile.save()
         print("Profile data changed!")
         messages.success(request,"Your changes saved!")
@@ -61,6 +65,7 @@ class UserProfile(LoginRequiredMixin, View):
         # print(Friends.objects.all())
         friendlist = Friends.objects.filter(Q(user1__user=user)|Q(user2__user=user))
         profile = user.profile
+        print(profile.image)
         print(profile.image.url)
         fl=[]
         for i in friendlist:

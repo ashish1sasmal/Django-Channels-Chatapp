@@ -91,7 +91,7 @@
         const user2 = JSON.parse(document.getElementById('user2').textContent);
 
         const chatSocket = new WebSocket(
-            'ws://' +
+            'wss://' +
             window.location.host +
             '/ws/profile/' +
             userName +
