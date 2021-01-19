@@ -10,6 +10,7 @@
 {% load static %}
 {% block content %}
 
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <style type="text/css">
   body {
   background: #E5DDD5 url("https://c4.wallpaperflare.com/wallpaper/620/81/253/pattern-design-dark-texture-wallpaper-preview.jpg") fixed;
@@ -55,6 +56,39 @@
   font-size: 14px;
   font-weight: bold;
 }
+
+.card-footer{
+		border-radius: 0 0 15px 15px !important;
+			border-top: 0 !important;
+	}
+
+  .send_btn{
+	border-radius: 0 15px 15px 0 !important;
+	background-color: #fffdf7 !important;
+			border:0 !important;
+			color: black !important;
+			cursor: pointer;
+		}
+
+    .type_msg:focus{
+       box-shadow:none !important;
+         outline:0px !important;
+  }
+
+  .type_msg{
+			background-color: #fffdf7 !important;
+			border:0 !important;
+			color:black !important;
+			height: 60px !important;
+			overflow-y: auto;
+		}
+
+    .fixedContainer {
+    position: fixed;
+    left: 50%;
+    top: 90%;
+    transform: translate(-50%, -50%);
+}
 </style>
 
 <div class="main">
@@ -78,18 +112,30 @@
     </div>
   </div>
   <br>
-  <div class="chat-form">
-    <div class="container ">
-        <div class="row">
-          <div class="col-sm-6 col-xs-6">
-            <input type="text" class="form-control" id="input" placeholder="Message" />
+
+  <!-- <div class="chat-form">
+      <div class="container ">
+          <div class="row">
+            <div class="col-11">
+              <textarea type="text" class="form-control" id="input" placeholder="Message" ></textarea>
+            </div>
+
+          <h3><a id="submit" type="submit"><i class="fab fa-telegram-plane"></i></a></h3>
           </div>
-          <div class="col-sm-2 col-xs-4">
-            <button type="button" id="submit" class="btn btn-success btn-block">Send</button>
-          </div>
-        </div>
-    </div>
-  </div>
+      </div>
+
+    </div> -->
+    <div class="card-footer col-md-10"style="position:fixed;top:85%">
+			<div class="input-group">
+				<textarea name="" id="input" class="form-control type_msg" placeholder="Type your message..."></textarea>
+				<div class="input-group-append">
+					<span class="input-group-text send_btn" id="submit"><i class="fas fa-location-arrow"></i></span>
+				</div>
+			</div>
+		</div>
+
+
+
 </div>
 
 
@@ -118,7 +164,7 @@
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
         const chatSocket = new WebSocket(
-            'wss://' +
+            'ws://' +
             window.location.host +
             '/ws/chat/' +
             roomName +
