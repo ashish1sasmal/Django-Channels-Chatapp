@@ -52,7 +52,7 @@
                 <div class="tab-content p-0">
 
                     <div class="tab-pane fade active show" id="profile-friends">
-                        <div class="m-b-10"><b>Friend List ({{ fl.count }})</b></div>
+                        <div class="m-b-10"><b>Friend List ({% frndscount user.profile %})</b></div>
 
                         <ul class="friend-list clearfix">
                             {% for i in fl %}
@@ -61,7 +61,7 @@
                                     <div class="friend-img"><img src="{{i.image.url}}" alt="" /></div>
                                     <div class="friend-info">
                                         <h4>{{ i.user.username }}</h4>
-                                        <p>{% frndscount i %}</p>
+                                        <p>{% frndscount i %} Friend(s)</p>
                                     </div>
                                 </a>
                             </li>

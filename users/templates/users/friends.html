@@ -187,7 +187,7 @@
           <table class="table manage-candidates-top mb-0">
             <thead>
               <tr>
-                <th>Candidate Name</th>
+                <th>All users</th>
               </tr>
             </thead>
             <tbody>
@@ -195,7 +195,7 @@
               <tr class="candidates-list">
                 <td class="title">
                   <div class="thumb">
-                    <img class="img-fluid" src="{{i.profile.image.url}}" alt="">{{i.profile.image.url}}
+                    <img class="img-fluid" src="{{i.profile.image.url}}" alt="">
                   </div>
                   <div class="candidate-list-details">
                     <div class="candidate-list-info">
@@ -204,7 +204,7 @@
                       </div>
                       <div class="candidate-list-option">
                         <ul class="list-unstyled">
-                          <li><i class="fas fa-filter pr-1"></i>Information Technology</li>
+                          <li><i class="fas fa-filter pr-1"></i>{{i.email}}</li>
                           <li><i class="fas fa-map-marker-alt pr-1"></i>Rolling Meadows, IL 60008</li>
                         </ul>
                       </div>
@@ -215,7 +215,7 @@
               {% endfor %}
             </tbody>
           </table>
-          <div class="text-center mt-3 mt-sm-3">
+          <!-- <div class="text-center mt-3 mt-sm-3">
             <ul class="pagination justify-content-center mb-0">
               <li class="page-item disabled"> <span class="page-link">Prev</span> </li>
               <li class="page-item active" aria-current="page"><span class="page-link">1 </span> <span class="sr-only">(current)</span></li>
@@ -225,7 +225,7 @@
               <li class="page-item"><a class="page-link" href="#">25</a></li>
               <li class="page-item"> <a class="page-link" href="#">Next</a> </li>
             </ul>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
