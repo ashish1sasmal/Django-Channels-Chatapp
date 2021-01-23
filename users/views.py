@@ -48,10 +48,11 @@ class EditProfile(LoginRequiredMixin, View):
         print("User data changed!")
         profile = Profile.objects.get(user=request.user)
         profile.phone = phone
-        print(request.FILES['image'])
-        out = cloudinary.uploader.upload(request.FILES['image'])
-        print(out)
-        profile.image = out['secure_url']
+        is_file = request.FILES.get('image',None)
+        if is_file is not None:
+	        out = cloudinary.uploader.upload(request.FILES['image'])
+	        print(out)
+	        profile.image = out['secure_url']
         profile.save()
         print("Profile data changed!")
         messages.success(request,"Your changes saved!")
